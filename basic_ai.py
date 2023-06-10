@@ -37,3 +37,28 @@ class BasicAIPlayer(Player):
 			self.hand.remove(card)
 		return cards_passed
 
+if __name__ == "__main__":
+	import random
+	for _ in range(100):				#change range to run multiple times to test for error message. your code should be able to withstand a lot of scenerios
+		deck = []
+		for suit in Suit:
+			for rank in Rank:
+				deck.append(Card(rank,suit))    
+		player1 = BasicAIPlayer("Test Player 1")
+		player1.hand = []
+		for i in range(13):
+			random_card = random.choice(deck)
+			player1.hand.append(random_card)
+			deck.remove(random_card)
+#		trick = random.choice([random.choice(deck),[]])
+		trick = random.choice([random.choice(deck)])
+		if trick:
+			trick = [trick]
+		broken_hearts = random.choice([True,False])
+		player1.hand.sort()
+		rand_card = random.choice(player1.hand)
+		print((player1.hand))
+		print(f"\nTrick:{(trick)}, Broken Hearts:{broken_hearts}")
+		print(f"Valid play check: {player1.check_valid_play(rand_card, trick, broken_hearts)}\nCard tested: {rand_card}")
+		print(f"\nCard played: {player1.play_card(trick,broken_hearts)}")#			, Valid Play: {player1.check_valid_play(player1.play_card(trick,broken_hearts), trick, broken_hearts)[0]}")
+		print(f"Card passed: {(player1.pass_cards())}")
